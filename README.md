@@ -23,7 +23,7 @@ Returns the current local time formatted as `YYYY-MM-DD HH:MM:SS`.
 ```json
 {
   "command": "get_time"
-}
+}```
 
 Output:
 Plaintext
@@ -33,7 +33,7 @@ Current time: 2026-02-10 14:30:00
 Development
 Prerequisites
 
-    Rust (latest stable or nightly for 2024 edition)
+    Rust (latest stable or nightly for 2025 edition)
 
     wasm32-wasi target:
     Bash
