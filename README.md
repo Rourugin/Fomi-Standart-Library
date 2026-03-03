@@ -23,7 +23,8 @@ Returns the current local time formatted as `YYYY-MM-DD HH:MM:SS`.
 ```json
 {
   "command": "get_time"
-}```
+}
+```
 
 Output:
 Plaintext
