@@ -1,5 +1,5 @@
-use std::{fmt::format, mem};
-use serde::{Deserialize, Serialize};
+use std::mem;
+use serde::Deserialize;
 use serde_json::json;
 
 
@@ -32,6 +32,10 @@ pub extern "C" fn fomi_run(ptr: *mut u8, len: i32) -> *mut u8 {
         "get_time" => {
             let now = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
             format!("Current time: {}", now)
+        },
+        "generate_uuid" => {
+            let new_uuid = uuid::Uuid::new_v4().to_string();
+            format!("Generated UUID: {}", new_uuid)
         },
         _ => format!("Unknown command: {}", args.command),
     };
