@@ -5,9 +5,9 @@ use serde_json::json;
 
 #[derive(Deserialize)]
 struct InputArgs {
-    command: String,
-    #[serde(default)]
-    params: serde_json::Value,
+    action: Option<String>,
+    #[serde(flatten)]
+    extra: serde_json::Value,
 }
 
 #[unsafe(no_mangle)]
@@ -24,20 +24,20 @@ pub extern "C" fn fomi_run(ptr: *mut u8, len: i32) -> *mut u8 {
     let input_str = String::from_utf8_lossy(input_slice);
 
     let args: InputArgs = serde_json::from_str(&input_str).unwrap_or(InputArgs {
-        command: "error".to_string(),
-        params: json!({"error": "Invalid JSON format"}),
+        action: Some("error".to_string()),
+        extra: json!({"error": "Invalid JSON format"}),
     });
 
-    let result = match args.command.as_str() {
-        "get_time" => {
+    let result = match args.action.as_deref() {
+        Some("get_time") => {
             let now = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
             format!("Current time: {}", now)
         },
-        "generate_uuid" => {
+        Some("generate_uuid") => {
             let new_uuid = uuid::Uuid::new_v4().to_string();
             format!("Generated UUID: {}", new_uuid)
         },
-        _ => format!("Unknown command: {}", args.command),
+        _ => format!("Unknown command: {}", args.extra),
     };
 
     let response_bytes = result.as_bytes();
