@@ -44,9 +44,9 @@ Prerequisites
 Building
 
 To compile the plugin into a .wasm file:
-Bash
+    Bash
 
-cargo build --target wasm32-wasi --release
+    cargo build --target wasm32-wasi --release
 
 The output file will be located at:
 target/wasm32-wasi/release/fomi_std_lib.wasm
